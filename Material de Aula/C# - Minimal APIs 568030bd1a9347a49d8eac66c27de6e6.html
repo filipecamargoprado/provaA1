@@ -1,0 +1,695 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>C# - Minimal APIs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="568030bd-1a93-47a4-9d8e-ac66c27de6e6" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1552120476-9ee56c8611f7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="data:image/png;base64,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"/></div><h1 class="page-title">C# - Minimal APIs</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d0099441-d2cc-4714-ab4d-cfbaa8c7db10"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Uma <strong>API mínima</strong> (ou <strong>Minimal API</strong>) é uma abordagem simplificada para criar APIs HTTP no <strong>ASP.NET Core</strong>. Ela foi introduzida na versão 6 do ASP.NET Core e é ideal para cenários em que você deseja criar APIs com o mínimo de sobrecarga e dependências.</div></figure><h2 id="ff9cf2bd-83f4-461a-b178-e65fbb3875b4" class="">Ambiente Web</h2><p id="33e322c3-6efc-4d56-b1d8-a6f2325a9854" class="">
+</p><figure id="192dac2c-fdc4-4fe2-b044-6d3464a54c77" class="image"><a href="Ambiente_Web_(1).jpg"><img style="width:621px" src="Ambiente_Web_(1).jpg"/></a></figure><h2 id="fda9cea7-aeb7-4602-8f0f-866a3bd054ff" class="">1. Criando um Projeto de API Mínima via CLI</h2><p id="7627a111-8464-491c-86f0-fa378efc7637" class="">Para criar um projeto de API mínima usando o <strong>CLI do .NET</strong>, siga estas etapas:</p><ul id="e4aae217-bc41-42cb-8bf9-c4bac6a74f96" class="bulleted-list"><li style="list-style-type:disc">Abra o terminal ou prompt de comando.</li></ul><ul id="f73d6178-dfdf-4c48-acc4-1f7c97dd4097" class="bulleted-list"><li style="list-style-type:disc">Execute o seguinte comando para criar um novo projeto de API mínima:Isso criará um novo diretório chamado “MinimalApiProject” com a estrutura básica de uma API mínima.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fdf35eff-ba91-432c-9fcb-da463aa750d0" class="code"><code class="language-Bash">dotnet new web -n MinimalApiProject</code></pre><p id="7fd85dff-5b07-4cf3-a0e5-c5222666112f" class="">Isso criará um novo diretório chamado “MinimalApiProject” com a estrutura básica de uma API mínima.</p><h2 id="6a77f465-920c-4bb7-868a-167c3a24ff2d" class="">2. Estrutura Básica de uma API Mínima</h2><p id="49a2cd12-9e06-44cf-baf3-f5a67102b718" class="">A estrutura básica de uma API mínima consiste em um arquivo <code><strong>Program.cs</strong></code> e um arquivo <code><strong>Startup.cs</strong></code>. Vamos focar no <code><strong>Program.cs</strong></code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="dc76bf04-da53-4402-b53a-c11afac22ff0" class="code"><code class="language-C#">using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.MapGet(&quot;/&quot;, () =&gt; &quot;Hello, Minimal API!&quot;);
+
+app.Run();</code></pre><p id="d3910f67-72d5-476f-ae78-dc432ee8c27d" class="">Neste exemplo, criamos um endpoint que responde com a mensagem “Hello, Minimal API!” quando acessamos a raiz (“/”) da API.</p><h2 id="236c021a-46d8-44bd-a559-8671b6ee5650" class="">3. Criando Endpoints</h2><p id="503892c0-914d-4933-9890-49560940dd75" class="">Para criar endpoints, utilize os métodos <code><strong>MapGet</strong></code>, <code><strong>MapPost</strong></code>, <code><strong>MapPut</strong></code>, etc. Por exemplo:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ee2780b-9a97-422e-9b91-418324093a39" class="code"><code class="language-C#">app.MapGet(&quot;/items&quot;, () =&gt; &quot;Obter todos os itens&quot;);
+app.MapPost(&quot;/items&quot;, () =&gt; &quot;Adicionar um novo item&quot;);
+// ... outros endpoints</code></pre><h2 id="30447200-9d8b-4a13-a0e0-20dfca6f9a5a" class="">4. Recebendo Parâmetros</h2><h3 id="563a1bdd-1190-46bc-9321-a94c93031203" class="">Pela URL (Query String)</h3><p id="b7541e9a-b576-4bd4-9970-43a8981dd426" class="">Declare um método para aceitar requisições HTTP GET com parâmetros:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f05731c5-4363-4e2a-b6ad-1eff551f85c2" class="code"><code class="language-C#">app.MapGet(&quot;/items/{id}&quot;, (int id) =&gt; $&quot;Obter item com ID {id}&quot;);</code></pre><p id="7064fd81-a89e-4030-ab1a-c10c84f30cf9" class="">Chame o endpoint: <code><strong>/items/42</strong></code></p><h3 id="a98a445d-7f84-4878-996e-0f65f1f4ccb0" class="">Pelo Corpo (JSON)</h3><p id="ec8458a8-27dc-4095-a20c-25c6e926b8d0" class="">Declare um método para aceitar requisições HTTP POST com um objeto no corpo:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a243d3b4-f133-49c7-a490-b9bc33a9a8ed" class="code"><code class="language-C#">app.MapPost(&quot;/items&quot;, ([FromBody] TodoItem item) =&gt; $&quot;Adicionar item: {item.Name}&quot;);</code></pre><p id="111019d8-6d8b-4301-aec0-3e4fd6aa72a1" class="">Envie um JSON no corpo da solicitação.</p><h2 id="d0e31f03-9356-4a3a-94c0-cd689c3290c4" class="">5. Especificando Métodos HTTP e Códigos de Retorno</h2><h2 id="e1feb2f5-06d3-46d5-8581-a6758c8a2f12" class="">Métodos HTTP (HTTP Verbs)</h2><p id="91bec90e-d9a8-4aef-965b-01dc143b7941" class="">Os métodos HTTP desempenham um papel fundamental na comunicação entre clientes e servidores na World Wide Web. Eles definem as operações que podem ser realizadas em recursos web. Aqui estão os principais métodos:</p><ol type="1" id="86731af3-eb3b-4ce6-92e2-c78def960e99" class="numbered-list" start="1"><li><strong>GET:</strong><ul id="c8614947-a59b-4c31-b0f5-f97571474918" class="bulleted-list"><li style="list-style-type:disc">Solicita a representação de um recurso específico.</li></ul><ul id="45f95d01-f939-467a-8ba7-69714905fb8b" class="bulleted-list"><li style="list-style-type:disc">Retorna apenas dados.</li></ul><ul id="7161a062-0c8b-438b-8109-04d2df613aeb" class="bulleted-list"><li style="list-style-type:disc">Exemplo: Obter informações de um usuário pelo ID.</li></ul></li></ol><ol type="1" id="29cc9814-649b-4a79-a60e-7d145d1a6e70" class="numbered-list" start="2"><li><strong>POST:</strong><ul id="ac4f11fb-f6d8-4841-acb0-a310b95f4921" class="bulleted-list"><li style="list-style-type:disc">Submete uma entidade a um recurso específico.</li></ul><ul id="71a28e40-1eac-4ab1-aabd-19699c7daab8" class="bulleted-list"><li style="list-style-type:disc">Pode causar mudanças no estado do recurso ou efeitos colaterais no servidor.</li></ul><ul id="fcf87659-bd1e-41d5-b2ea-d3429607997d" class="bulleted-list"><li style="list-style-type:disc">Exemplo: Enviar dados de um formulário para criar um novo usuário.</li></ul></li></ol><ol type="1" id="d950a7f3-f802-4647-b12c-19558aa6cea4" class="numbered-list" start="3"><li><strong>PUT:</strong><ul id="6a9b6758-818a-46c9-a40c-72a2ea5053f0" class="bulleted-list"><li style="list-style-type:disc">Substitui todas as representações atuais do recurso pelo conteúdo da requisição.</li></ul><ul id="ffe98274-e3cf-43b4-81ab-d9487112f45c" class="bulleted-list"><li style="list-style-type:disc">Atualiza um recurso existente.</li></ul><ul id="390d0c62-2756-4bec-9d4e-a2aff0450cf9" class="bulleted-list"><li style="list-style-type:disc">Exemplo: Atualizar informações de um usuário.</li></ul></li></ol><ol type="1" id="50bce33a-3eb5-42c6-b141-176db0de2bf4" class="numbered-list" start="4"><li><strong>DELETE:</strong><ul id="63298ead-f18e-4464-9cf4-a61faecdad89" class="bulleted-list"><li style="list-style-type:disc">Remove um recurso específico.</li></ul><ul id="bf08f753-06cf-48a1-9f83-00c0f3be0dab" class="bulleted-list"><li style="list-style-type:disc">Exemplo: Excluir um usuário.</li></ul></li></ol><ol type="1" id="f341efa3-bd45-42f2-b008-3d6f7f1b27ab" class="numbered-list" start="5"><li><strong>PATCH:</strong><ul id="8047f2a5-57f9-4da2-9554-5c6c0eeafb2c" class="bulleted-list"><li style="list-style-type:disc">Aplica modificações parciais em um recurso.</li></ul><ul id="2b859a2a-4656-4d4a-8838-fa298845f006" class="bulleted-list"><li style="list-style-type:disc">Exemplo: Atualizar apenas alguns campos de um usuário.</li></ul><h2 id="93de886e-1003-48b9-b7bd-4449f6eb6669" class="">6. Códigos de Status HTTP mais comuns</h2><p id="b72b1c9b-a1fa-4b4c-9e6a-5f201465b1dd" class="">Os códigos de status HTTP são respostas de três dígitos que um servidor retorna em resposta a uma solicitação de um cliente. Esses códigos indicam o resultado da operação e são agrupados em cinco classes:</p><ol type="1" id="cdc166c6-0b3d-420a-80e5-dc1ab0785cc8" class="numbered-list" start="1"><li><strong>Respostas Informativas (100 – 199)</strong>:<ul id="98538e11-2d94-495e-8ee8-ac071a141d59" class="bulleted-list"><li style="list-style-type:disc">Essas respostas são informativas e não indicam sucesso ou falha. Alguns exemplos incluem:<ul id="e74fd154-a076-4cac-a974-c3ce25f31d91" class="bulleted-list"><li style="list-style-type:circle"><strong>100 Continue</strong>: Indica que o cliente deve continuar a solicitação ou ignorar a resposta se a solicitação já estiver concluída.</li></ul><ul id="a8471b13-c9ec-4ba7-87db-e054823401c6" class="bulleted-list"><li style="list-style-type:circle"><strong>101 Switching Protocols</strong>: Enviado quando o servidor está mudando de protocolo (por exemplo, HTTP para WebSocket).</li></ul></li></ul></li></ol><ol type="1" id="60114f50-2fef-4aa5-b384-3ed593c83a03" class="numbered-list" start="2"><li><strong>Respostas Bem-Sucedidas (200 – 299)</strong>:<ul id="21a3d1cf-025a-4081-80cf-a515c81a0d41" class="bulleted-list"><li style="list-style-type:disc">Indicam que a solicitação foi bem-sucedida. Alguns exemplos:<ul id="132bbe31-fe75-4203-862c-9dfd76f900e8" class="bulleted-list"><li style="list-style-type:circle"><strong>200 OK</strong>: A solicitação foi bem-sucedida. O significado varia com o método HTTP usado (GET, HEAD, PUT, POST, TRACE).</li></ul><ul id="db2500bc-146d-494e-b92e-626fd17457b3" class="bulleted-list"><li style="list-style-type:circle"><strong>201 Created</strong>: A requisição foi bem-sucedida, e um novo recurso foi criado como resultado (geralmente após solicitações POST ou PUT).</li></ul></li></ul></li></ol><ol type="1" id="e609d370-ae5b-4342-ad65-bd049a3812fe" class="numbered-list" start="3"><li><strong>Mensagens de Redirecionamento (300 – 399)</strong>:<ul id="7d10a7fb-b8b7-40d6-834d-83a0b84a7f0e" class="bulleted-list"><li style="list-style-type:disc">Indicam que o cliente deve tomar ações adicionais para concluir a solicitação. Exemplos:<ul id="5d6446bf-ffbb-4323-82be-90c2e9a95ea0" class="bulleted-list"><li style="list-style-type:circle"><strong>301 Moved Permanently</strong>: O recurso foi movido permanentemente para uma nova URL.</li></ul><ul id="82232b0f-54c8-4381-8469-f1fd1877c2bc" class="bulleted-list"><li style="list-style-type:circle"><strong>302 Found (ou 303 See Other)</strong>: O recurso foi temporariamente movido para uma nova URL.</li></ul></li></ul></li></ol><ol type="1" id="8b6eb9f5-bc43-4e7d-9e0e-61f537200084" class="numbered-list" start="4"><li><strong>Respostas de Erro do Cliente (400 – 499)</strong>:<ul id="255ae330-df86-42c1-8174-44e866dc4679" class="bulleted-list"><li style="list-style-type:disc">Indicam que houve um erro na solicitação do cliente. Alguns exemplos:<ul id="b37636df-4adc-4be8-ba80-e63225e4c5bd" class="bulleted-list"><li style="list-style-type:circle"><strong>404 Not Found</strong>: O recurso solicitado não foi encontrado.</li></ul><ul id="85d5c3c5-3f1e-4cfa-98d9-ba5baac2514d" class="bulleted-list"><li style="list-style-type:circle"><strong>400 Bad Request</strong>: A solicitação é inválida ou malformada.</li></ul></li></ul></li></ol><ol type="1" id="21198b09-03f0-4260-a785-31a380c3cb77" class="numbered-list" start="5"><li><strong>Respostas de Erro do Servidor (500 – 599)</strong>:<ul id="c22f2374-b46a-499f-a35f-9aac22f9da02" class="bulleted-list"><li style="list-style-type:disc">Indicam que o servidor encontrou um erro ao processar a solicitação. Exemplos:<ul id="cefd5b13-4af1-4633-9099-921d57771e5d" class="bulleted-list"><li style="list-style-type:circle"><strong>500 Internal Server Error</strong>: Erro interno no servidor.</li></ul><ul id="ff992bb6-a860-465c-9615-24a7486b9316" class="bulleted-list"><li style="list-style-type:circle"><strong>503 Service Unavailable</strong>: O servidor não está disponível para lidar com a solicitação.</li></ul></li></ul></li></ol><p id="9e3b095b-608f-4de2-8b66-a775a0553bf1" class="">Lembre-se de que esses códigos são essenciais para depurar problemas e entender o estado das solicitações. Adaptar esses conceitos ao seu cenário específico é fundamental! 😊</p></li></ol></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>C# - Estruturas de básicas de programação</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="01757248-e3c7-401b-9aaa-6246e7454b5d" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1552120476-9ee56c8611f7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="data:image/png;base64,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"/></div><h1 class="page-title">C# - Estruturas de básicas de programação</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="4e5daa0b-94d3-4edd-8662-0ca2c580e95f"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Essas são apenas algumas estruturas básicas em C#. Você pode expandir seu conhecimento explorando mais sobre classes, objetos, métodos, exceções e outros conceitos importantes da linguagem.</div></figure><h2 id="b0ae5c06-4cd7-44be-98ce-3357dd2f9623" class="">Comentários</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="799f21d6-723c-4185-af9b-47888332633f" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">// Este é um comentário de linha única
+
+/*
+   Este é um comentário
+   de múltiplas linhas
+*/</code></pre><hr id="de38af56-bb0a-4338-9a45-595cc6232435"/><h2 id="b38ae91f-c674-42ac-99ad-762c015d43ae" class="">Variáveis e Tipos de Dados</h2><p id="b1b3fadd-c939-43fc-ae90-369ad879acb8" class="">Tipagem em linguagens de programação refere-se à definição de tipos de dados para variáveis, parâmetros de função, e assim por diante. Em C#, existem dois tipos principais de tipagem:</p><ol type="1" id="02190ab6-1684-4340-acf7-a6199aa1b3f2" class="numbered-list" start="1"><li><strong>Tipagem Estática</strong>: O tipo de uma variável é verificado em tempo de compilação e não pode ser alterado após a compilação.</li></ol><ol type="1" id="1426eca3-ab2b-41ae-b640-c3802a9ad3fa" class="numbered-list" start="2"><li><strong>Tipagem Dinâmica</strong>: O tipo de uma variável é verificado em tempo de execução e pode ser alterado durante a execução do programa.</li></ol><h2 id="0bae749f-8bd7-4a54-85dc-627689283466" class="">Tipos Primitivos</h2><h3 id="c3351a2a-5fd3-4189-a22b-4680f4ab14bc" class="">Tipos Numéricos Integrais</h3><ul id="e9134a3a-0756-4c5e-988f-caa227f29691" class="bulleted-list"><li style="list-style-type:disc"><strong>sbyte</strong>: 8 bits com sinal (-128 a 127)</li></ul><ul id="3d70aac3-639b-41d5-8de4-1820e0e0dc17" class="bulleted-list"><li style="list-style-type:disc"><strong>byte</strong>: 8 bits sem sinal (0 a 255)</li></ul><ul id="ebcf885b-3718-487b-aa4a-322e47511472" class="bulleted-list"><li style="list-style-type:disc"><strong>short</strong>: 16 bits com sinal (-32,768 a 32,767)</li></ul><ul id="3e7e9c22-e0d0-41dd-aa5f-0f55b66a7151" class="bulleted-list"><li style="list-style-type:disc"><strong>ushort</strong>: 16 bits sem sinal (0 a 65,535)</li></ul><ul id="14debf4f-97c2-4fe8-979c-f5114786a036" class="bulleted-list"><li style="list-style-type:disc"><strong>int</strong>: 32 bits com sinal (-2,147,483,648 a 2,147,483,647)</li></ul><ul id="b35c9400-9fbf-40f7-a2ab-f450826be151" class="bulleted-list"><li style="list-style-type:disc"><strong>uint</strong>: 32 bits sem sinal (0 a 4,294,967,295)</li></ul><ul id="09c5f347-c8b6-43d4-a928-7aff8f2accb4" class="bulleted-list"><li style="list-style-type:disc"><strong>long</strong>: 64 bits com sinal (-9,223,372,036,854,775,808 a 9,223,372,036,854,775,807)</li></ul><ul id="65fc7612-168d-48d7-b3a2-06ca6d1d6f92" class="bulleted-list"><li style="list-style-type:disc"><strong>ulong</strong>: 64 bits sem sinal (0 a 18,446,744,073,709,551,615)</li></ul><h3 id="4bb428cf-be7a-403e-afc0-b20cc5dc8ad5" class="">Tipos Numéricos de Ponto Flutuante</h3><ul id="e7a69282-61b1-4540-89bb-7369ecc01851" class="bulleted-list"><li style="list-style-type:disc"><strong>float</strong>: 32 bits (aproximadamente de -3.4 × 10^38 a 3.4 × 10^38, precisão de 7 dígitos)</li></ul><ul id="fa258c19-7162-41c9-a5ce-c68867db3ed0" class="bulleted-list"><li style="list-style-type:disc"><strong>double</strong>: 64 bits (aproximadamente de ±5.0 × 10^−324 a ±1.7 × 10^308, precisão de 15-16 dígitos)</li></ul><ul id="a8fab180-b2eb-4b6b-90f0-8900b9983f76" class="bulleted-list"><li style="list-style-type:disc"><strong>decimal</strong>: 128 bits (aproximadamente de ±1.0 x 10^-28 a ±7.9 x 10^28, precisão de 28-29 dígitos)</li></ul><h3 id="a43038c9-bf99-4385-9af3-bb64bd9c36c6" class="">Tipos Booleanos</h3><ul id="ddb43c69-2c51-47e6-98bf-904e1e1a8b7e" class="bulleted-list"><li style="list-style-type:disc"><strong>bool</strong>: Representa valores verdadeiro ou falso (true ou false).</li></ul><h3 id="a940f0bd-c21d-4f4d-b34b-21648cbac1d9" class="">Tipos de Caracteres</h3><ul id="11dae148-f8fe-4339-a544-a171645a1348" class="bulleted-list"><li style="list-style-type:disc"><strong>char</strong>: Representa um único caractere Unicode.</li></ul><h3 id="170d3328-8a24-43cb-8961-6c25ee4967f3" class="">Tipo String</h3><ul id="b1a9ed6c-b797-43a3-907e-aa7ae1000cc3" class="bulleted-list"><li style="list-style-type:disc"><strong>string</strong>: Representa uma sequência de caracteres Unicode.</li></ul><h2 id="9857644d-2b71-4dcd-9a74-184340f6248e" class="">Tipos Compostos</h2><h3 id="a090e83e-bc38-40a5-b786-25fa9e00b58b" class="">Array</h3><ul id="89093d8a-912e-4ba8-818b-7d26ca5d684a" class="bulleted-list"><li style="list-style-type:disc"><strong>Array</strong>: Coleção de elementos do mesmo tipo.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7f27ab9f-744f-41e2-b34f-56d1c81eeed7" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">int[] numeros = new int[5];
+</code></pre><h3 id="f570caf9-7a77-4183-b377-7f6b30fe8501" class="">Tuple</h3><ul id="297ebdce-4ea6-41aa-9621-7fdb91b7cccc" class="bulleted-list"><li style="list-style-type:disc"><strong>Tuple</strong>: Agrupa um conjunto de elementos de diferentes tipos.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e970645d-5f2a-4ec2-aaa6-61a4ecb08043" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">var pessoa = (nome: &quot;Maria&quot;, idade: 30, altura: 1.65);
+</code></pre><h2 id="fc12d344-85f6-402a-a7eb-acca292bc6b1" class="">Tipo Enumerado (Enum)</h2><ul id="923508c2-c297-4c5f-a024-003e74639a5d" class="bulleted-list"><li style="list-style-type:disc"><strong>Enum</strong>: Define um tipo de valor nomeado.</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7725e01f-dfec-40b3-83bd-0ac3f521512c" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">enum DiaSemana { Domingo, Segunda, Terca, Quarta, Quinta, Sexta, Sabado }
+DiaSemana dia = DiaSemana.Segunda;
+</code></pre><hr id="24ccc1a0-1ec6-4218-a59d-2c4bbbe11711"/><h2 id="ab588fd9-c762-4e1b-8252-076c451f23d4" class="">Estruturas Condicionais</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0a51d462-264d-4ae9-abba-c56867a46be6" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">if (idade &gt;= 18)
+{
+    Console.WriteLine(&quot;Você é maior de idade.&quot;);
+}
+else
+{
+    Console.WriteLine(&quot;Você é menor de idade.&quot;);
+}</code></pre><hr id="5bf0cfd9-467d-4d62-beeb-4cbc1cc56b56"/><h2 id="e731faaf-2e15-4a9c-88b9-af5069c2e13b" class="">Estruturas de Repetição</h2><h3 id="6db04838-825e-4022-b92b-882f635e2df0" class="">a) While</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="144af951-988e-4115-9672-4022592f1a2f" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">int contador = 0;
+while (contador &lt; 5)
+{
+    Console.WriteLine(contador);
+    contador++;
+}</code></pre><h3 id="77757ff4-878b-4774-9453-8ee3c0d98f27" class="">b) For</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f26567b-9111-4ff4-be28-a6bdece4473b" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">for (int i = 0; i &lt; 5; i++)
+{
+    Console.WriteLine(i);
+}</code></pre><h3 id="e987e23a-5bef-4155-980f-67b7a3c1a619" class="">c) Foreach</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5ce1bc9f-63e6-4062-85e1-798d05c9a39f" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">string[] cores = { &quot;vermelho&quot;, &quot;azul&quot;, &quot;verde&quot; };
+foreach (string cor in cores)
+{
+    Console.WriteLine(cor);
+}</code></pre><hr id="239a3528-1f88-4230-a81f-94d3f2056319"/><h2 id="d4111966-117d-4d7b-97e9-de096f07ab29" class="">Funções</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f2cbbac-e66a-497d-b0a2-47888aaf49e5" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">int Somar(int a, int b)
+{
+    return a + b;
+}</code></pre></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
